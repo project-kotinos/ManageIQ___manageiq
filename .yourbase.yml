@@ -1,0 +1,20 @@
+build_targets:
+- commands:
+  - chmod +x yourbased.sh
+  - sh ./yourbased.sh
+  container:
+    image: yourbase/yb_ubuntu:16.04
+  name: default
+  environment:
+  - RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
+  - RUBY_GC_HEAP_INIT_SLOTS=600000
+  - RUBY_GC_HEAP_GROWTH_FACTOR=1.25
+  - PARALLEL_TEST_PROCESSORS=2
+  - TEST_SUITE=vmdb PARALLEL=true
+ci:
+  builds:
+  - build_target: default
+    name: default
+dependencies:
+  build:
+  - ruby:2.5.3
