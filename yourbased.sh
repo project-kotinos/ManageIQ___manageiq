@@ -5,6 +5,8 @@ export RAILS_ENV=test
 apt-get update && apt-get install -y tzdata
 gem install bundler -v 2.0.1
 
+export TRAVIS_BUILD_DIR=$PWD
+
 #before install
 source tools/ci/before_install.sh
 
