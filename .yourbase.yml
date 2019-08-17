@@ -11,19 +11,16 @@ build_targets:
   - RUBY_GC_HEAP_GROWTH_FACTOR=1.25
   - PARALLEL_TEST_PROCESSORS=2
   - TEST_SUITE=vmdb 
-  #- PARALLEL=true
+  - DISABLE_DATABASE_ENVIRONMENT_CHECK=true
   - DATABASE_ADAPTER=postgresql
   - DATABASE_USERNAME=postgres
-  - PGUSER=postgres
-  - PGPASSWORD=postgres
   - PGHOST={{ .Containers.IP "db" }}
-  - DATABASE_URL=postgres://postgres:postgres@{{ .Containers.IP "db" }}:5432/postgres
   dependencies:
       containers:
         db:
           image: postgres:10.10
           environment:
-            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_PASSWORD=
             - POSTGRES_USER=postgres
             - POSTGRES_DB=postgres
           port_check:
