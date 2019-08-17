@@ -10,21 +10,22 @@ build_targets:
   - RUBY_GC_HEAP_INIT_SLOTS=600000
   - RUBY_GC_HEAP_GROWTH_FACTOR=1.25
   - PARALLEL_TEST_PROCESSORS=2
-  - TEST_SUITE=vmdb PARALLEL=true
+  - TEST_SUITE=vmdb 
+  - PARALLEL=true
   - DATABASE_ADAPTER=postgresql
   - DATABASE_USERNAME=postgres
-  - PGUSER=root
-  - PGPASSWORD=smartvm
+  - PGUSER=postgres
+  - PGPASSWORD=postgres
   - PGHOST={{ .Containers.IP "db" }}
-  - DATABASE_URL=postgres://ci:ci@{{ .Containers.IP "db" }}:5432/travis_ci_test
+  - DATABASE_URL=postgres://postgres:postgres@{{ .Containers.IP "db" }}:5432/postgres
   dependencies:
       containers:
         db:
-          image: postgres:9.4
+          image: postgres:10.10
           environment:
-            - POSTGRES_PASSWORD=smartvm
-            - POSTGRES_USER=root
-            - POSTGRES_DB=travis_ci_test
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=postgres
           port_check:
             port: 5432
             timeout: 45
@@ -35,3 +36,4 @@ ci:
 dependencies:
   build:
   - ruby:2.5.3
+  - node:10.15.2
